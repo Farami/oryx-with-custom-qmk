@@ -249,6 +249,22 @@ void matrix_scan_user(void) {
   achordion_task();
 }
 
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t *tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t *other_record) {
+
+    switch (tap_hold_keycode) {
+    case LT(1,KC_BSPC):
+    case LT(2,KC_ESCAPE):
+    case LT(4,KC_ENTER):
+    case LT(3,KC_SPACE):
+      return true;
+  }
+
+  return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
 typedef struct {
     bool is_press_action;
     uint8_t step;
