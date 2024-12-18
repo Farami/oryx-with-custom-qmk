@@ -210,7 +210,7 @@ bool achordion_chord(uint16_t tap_hold_keycode,
 
     switch (tap_hold_keycode) {
     case LT(1,KC_BSPC):
-    case LT(2,KC_ESCAPE):
+    case LT(2,KC_TAB):
     case LT(4,KC_ENTER):
     case LT(3,KC_SPACE):
     case LT(7,KC_SPACE):
