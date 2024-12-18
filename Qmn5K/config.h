@@ -25,7 +25,7 @@
 #undef MOUSEKEY_WHEEL_INTERVAL
 #define MOUSEKEY_WHEEL_INTERVAL 101
 
-#define SERIAL_NUMBER "Qmn5K/MYjBK"
+#define SERIAL_NUMBER "Qmn5K/rrjAl"
 #define LAYER_STATE_16BIT
 #define COMBO_COUNT 2
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
