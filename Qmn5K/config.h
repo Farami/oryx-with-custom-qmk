@@ -1,8 +1,3 @@
-/*
-  Set any config.h overrides for your specific keymap here.
-  See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
-*/
-
 #undef TAPPING_TERM
 #define TAPPING_TERM 175
 
@@ -25,8 +20,8 @@
 #undef MOUSEKEY_WHEEL_INTERVAL
 #define MOUSEKEY_WHEEL_INTERVAL 101
 
-#define SERIAL_NUMBER "Qmn5K/mBMWP"
-#define LAYER_STATE_16BIT
+#define SERIAL_NUMBER "Qmn5K/rbbLnQ"
+#define LAYER_STATE_8BIT
 #define COMBO_COUNT 2
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 
