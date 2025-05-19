@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "features/achordion.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
 
@@ -165,6 +166,8 @@ bool rgb_matrix_indicators_user(void) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_achordion(keycode, record)) { return false; }
+
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
@@ -213,4 +216,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void matrix_scan_user(void) {
+  achordion_task();
+}
+
+bool is_thumb_key(uint16_t keycode) {
+  return (keycode == LT(1,KC_BSPC) ||
+          keycode == LT(2,KC_TAB) ||
+          keycode == LT(4,KC_ENTER) ||
+          keycode == LT(3,KC_SPACE) ||
+          keycode == LT(7,KC_SPACE));
+}
+
+bool is_homerow_mod(uint16_t keycode) {
+  return (keycode == MT(MOD_LCTL, KC_A) ||
+          keycode == MT(MOD_LALT, KC_R) ||
+          keycode == MT(MOD_LGUI, KC_S) ||
+          keycode == MT(MOD_LSFT, KC_T) ||
+          keycode == MT(MOD_RSFT, KC_N) ||
+          keycode == MT(MOD_RGUI, KC_E) ||
+          keycode == MT(MOD_LALT, KC_I) ||
+          keycode == MT(MOD_RCTL, KC_O));
+}
+
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t *tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t *other_record) {
+
+    bool tap_is_homerow_mod = is_homerow_mod(tap_hold_keycode);
+    bool other_is_thumb_key = is_thumb_key(other_keycode);
+
+    // Skip Achordion when pressing homerow mod + thumb key
+    if (tap_is_homerow_mod && other_is_thumb_key) {
+        return true;
+    }
+
+    // Always skip thumb keys
+    if (is_thumb_key(tap_hold_keycode)) {
+        return true;
+    }
+
+    return achordion_opposite_hands(tap_hold_record, other_record);
+}
 
