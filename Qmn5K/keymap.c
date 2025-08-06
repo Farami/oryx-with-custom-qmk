@@ -245,7 +245,7 @@ bool is_homerow_mod(uint16_t keycode) {
 bool is_command_key(uint16_t keycode) {
   return (keycode == LT(1,KC_B) ||
           keycode == LT(2,KC_G) ||
-          keycode == LT(4,KC_V);
+          keycode == LT(4,KC_V));
 }
 
 bool achordion_chord(uint16_t tap_hold_keycode,
