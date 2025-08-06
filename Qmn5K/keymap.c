@@ -239,6 +239,12 @@ bool is_homerow_mod(uint16_t keycode) {
           keycode == MT(MOD_RCTL, KC_O));
 }
 
+bool is_command_key(uint16_t keycode) {
+  return (keycode == LT(1,KC_B) ||
+          keycode == LT(2,KC_G) ||
+          keycode == LT(4,KC_V);
+}
+
 bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t *tap_hold_record,
                      uint16_t other_keycode,
@@ -246,9 +252,10 @@ bool achordion_chord(uint16_t tap_hold_keycode,
 
     bool tap_is_homerow_mod = is_homerow_mod(tap_hold_keycode);
     bool other_is_thumb_key = is_thumb_key(other_keycode);
+    bool other_is_command_key = is_command_key(other_keycode);
 
-    // Skip Achordion when pressing homerow mod + thumb key
-    if (tap_is_homerow_mod && other_is_thumb_key) {
+    // Skip Achordion when pressing homerow mod/command + thumb key
+    if ((tap_is_homerow_mod && (other_is_thumb_key || other_is_command_key))) {
         return true;
     }
 
