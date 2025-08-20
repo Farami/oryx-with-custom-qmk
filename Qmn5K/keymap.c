@@ -182,9 +182,6 @@ void housekeeping_task_user(void) {
   achordion_task();
 }
 
-
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_achordion(keycode, record)) { return false; }
 
